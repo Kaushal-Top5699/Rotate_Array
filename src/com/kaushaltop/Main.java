@@ -8,6 +8,7 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+
         rotateArray();
     }
 
@@ -17,34 +18,51 @@ public class Main {
         int count;
         int original = 0;
 
-        System.out.println("Define array size: ");
-        int size = scanner.nextInt();
+        int tracker = 1;
+        boolean notFound = true;
+
+        System.out.println("Enter number of test cases: ");
+        int testCases = scanner.nextInt();
         scanner.nextLine();
 
-        int[] a = new int[size];
-        int[] b = new int[size];
+        do {
 
-        System.out.println("Enter the array elements: ");
-        for (int i=0; i<a.length; i++)
-            a[i] = scanner.nextInt();
+            System.out.println("Define array size: ");
+            int size = scanner.nextInt();
+            //scanner.nextLine();
 
-        System.out.println("Enter point element of rotation: ");
-        int R = scanner.nextInt();
-        scanner.nextLine();
+            int[] a = new int[size];
+            int[] b = new int[size];
 
-        for (int i=0; i<a.length; i++) {
+            System.out.println("Enter the array elements: ");
+            for (int i=0; i<a.length; i++)
+                    a[i] = scanner.nextInt();
 
-            if (a[i] == R) {
-                //System.out.println("Point of rotation: "+i);
-                position = i;
-                count = i;
+            System.out.println("Enter point element of rotation: ");
+            int R = scanner.nextInt();
+            scanner.nextLine();
 
-                rotationArray(position, count, a, b, original);
-                return;
+            for (int i=0; i<a.length; i++) {
 
+                if (a[i] == R) {
+                    //System.out.println("Point of rotation: "+i);
+                    position = i;
+                    count = i;
+
+                    rotationArray(position, count, a, b, original);
+                    tracker++;
+
+                    notFound = false;
+                }
             }
-        }
-        System.out.println("Invalid Input");
+            if (notFound) {
+
+                System.out.println("Invalid Input");
+            }
+
+        } while (tracker <= testCases);
+
+        scanner.close();
     }
 
     private static void rotationArray(int position, int count, int[] a, int[] b, int original){
@@ -57,8 +75,7 @@ public class Main {
             else { if (original <= count) {
                 b[i] = a[original];
                 original++;
-            }
-            }
+            } }
         }
         System.out.println();
         System.out.println("Before Rotation: ");
